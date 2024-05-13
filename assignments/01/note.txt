@@ -1,0 +1,99 @@
+소개
+
+React 프로젝트 제작시 CRA나 vite는 프로젝트 세팅을 도와주는 것 뿐
+Gatsby는 진입장벽있음
+
+실제 React는 가벼운 라이브러리라서 script태그 3~4줄+@면 동작 가능함
+
+등장 배경
+HTML,CSS,JavaScript의 방식에는 3가지 한계가 있었음.
+1. 유지보수의 어려움
+2. DOM 조작의 비효율성
+3. 재사용성 부족
+왜 React 쓰세요?
+1. 유지보수가 쉬워서
+2. 컴포넌트로 인한 재사용성을 높일 수 있기 때문에
+3. 가상 DOM사용으로 효율적인 렌더링 가능
+
+전통적인 웹 개발 방식은 MPA
+React는 SPA
+
+전통적인 웹 개발 방식은 SSR
+React는 CSR
+
+scaffolding
+
+node_modules
+  노드 환경에서 설치한 라이브러리들 있는곳
+public (vite가 제공해줌)
+  public안에 뭔가 만들어 놓으면 바로 root에서 접근할 수 있게 해줌
+  어떤것이든 만들 수 있음
+  static한 assets들 img,font 등등 넣어 놓는 곳
+src
+  우리가 작성하는 소스들
+
+주요 개념
+1. 가상DOM
+  만들고자 한 형태를 가상적으로 메모리에 저장하고 실제 DOM과 동기하는 프로그래밍 개념
+  실제 DOM 흉내 낸 가상의 DOM
+  가상 DOM사용해서 실제보다 빠르게 UI변경사항을 관리해줌
+    실제 DOM을 비교하는건 상대적으로 비싸고 느린 작업
+    가상 DOM을 비교하는건 상대적으로 저렴하고 빠른 작업
+  변경이 필요한 부분만 찾아서 실제 DOM에 반영해서 빠르다
+
+2. JSX
+  JavaScript의 확장 문법, React에서 UI구조를 표현하는데 사용 됨
+  **HTML 태그와 유사하지만 실제론 JavaScript의 확장이라 완전히 다른 것**
+  JavaScript의 CreateElement함수보다 직관적이로 편의를 제공하는 것 뿐
+  JSX내에서 js표현식을 중괄호로 묶어 사용 가능
+  컴포넌트 제작 가능 -> 구조화 및 재사용성, 유지보수성 up
+  읽기 쉽고 작성하기 편리
+  컴포넌트 구조 명확화
+
+  브라우저는 JSX를 모르고 Js만 읽을 수 있음
+  그래서 Babel 같은 트랜스파일러를 사용해서 변환해줘야함
+
+3.React Component vs React Element 구분 중요
+  Component는 쉽게 말해 함수
+    ->  function Greeting() {
+	        return <div>Hello World</div>
+        }
+  Element는 함수를 JSX로 표현한 것
+    ->  <Greeting />
+
+4. State
+  컴포넌트 내부 데이터 관리 하는데 사용되는 데이터 구조
+  React는 State가 변경되어야 리렌더링 하도록 만들어져있기 때문에
+  **리렌더링은 App 함수의 호출**
+
+5. Props
+  부모->자식 으로 전달하는 데이터
+  읽기전용, 수정하면 안됨
+  재사용성 증가
+  Props의 값이 변하면 리렌더링
+  구조분해할당 많이씀
+
+6. 리렌더링 조건 *** 외우거라
+  State가 변경될 때
+  부모로부터 전달받는 Props의 값이 변경될 때 (props가 꼭 state가 아니여도)
+  부모가 리렌더링되면 자식도 함께 리렌더링
+    (이건 피하는 방법이 있긴함) -> React.memo
+    -> 그럼 무지성으로 다 쓰면?
+      -> 혼자 작업할땐 상관X, 동료가 물어보는데 답을 할 수 없다
+      -> 알아도 당연히 안됨 -> memo한다는건 어딘가 저장한다는것(메모리)
+
+7. React component 생애주기
+  1. Mounting -> 컴포넌트가 DOM에 장착되는 것 (한번만)
+  2. Updating -> 리렌더링 될 때마다 
+  3. Unmounting -> 페이지 변경
+
+학습목표
+1. 실제 DOM을 흉내낸 것
+    가상DOM은 Js안에 존재, 메모리 위에 존재, 실제DOM 재조정(변경) 해주기 위해 존재,
+2. 객체,배열을 뜯어서.. 재조립 및 분해 가능
+3. npm create vite@latest
+4. Props
+5. Js 확장 문법, React.createElement 를 쉽게 표현하기 위해
+    HTML과 완전히 다른 것,
+6.
+7.  컴포넌트로 만든다(재사용성 높은이유:Props)
