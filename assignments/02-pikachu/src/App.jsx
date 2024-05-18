@@ -53,18 +53,25 @@ function App() {
       <div
         className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] 
         size-[500px] border-1 border-solid border-gray-200
-        shadow-gray-700 shadow-lg"
+        shadow-gray-700 shadow-lg
+        "
       >
-        {Array.from({ length: GRID_COUNT }).map((_, i) => (
-          <div className="h-[10%] flex " key={i}>
-            {Array.from({ length: GRID_COUNT }).map((_, j) => (
-              <div
-                className="w-[10%] bg-[url(./src/assets/grass.png)]"
-                key={j}
-              />
-            ))}
-          </div>
-        ))}
+        <div className="w-full h-full divide-y-2 divide-solid divide-gray-300">
+          {Array.from({ length: GRID_COUNT }).map((_, i) => (
+            <div
+              className="h-[10%] flex divide-x-2 divide-solid divide-gray-300"
+              key={i}
+            >
+              {Array.from({ length: GRID_COUNT }).map((_, j) => (
+                <div
+                  className="w-[10%] bg-[url(./src/assets/grass.png)]"
+                  key={j}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+
         <div
           style={{
             top: position.y,
