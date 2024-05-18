@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
-const GRID_SIZE = 10;
+const GRID_COUNT = 10;
 
 function App() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isFlip, setIsFlip] = useState(false);
 
   useEffect(() => {
     const moveHandler = (event) => {
@@ -17,15 +18,17 @@ function App() {
         y += 50;
       } else if (key === "ArrowLeft" && x > 0) {
         x -= 50;
+        setIsFlip(true);
       } else if (key === "ArrowRight" && x < 450) {
         x += 50;
+        setIsFlip(false);
       } else if (key === " ") {
       }
       setPosition({ x, y });
+      setTimeout(() => {}, 300);
     };
 
     window.addEventListener("keydown", moveHandler);
-
     return () => window.removeEventListener("keydown", moveHandler);
   }, [position]);
 
@@ -36,9 +39,9 @@ function App() {
         size-[500px] border-1 border-solid border-gray-200
         shadow-gray-700 shadow-lg"
       >
-        {Array.from({ length: GRID_SIZE }).map((_, i) => (
+        {Array.from({ length: GRID_COUNT }).map((_, i) => (
           <div className="h-[10%] flex " key={i}>
-            {Array.from({ length: GRID_SIZE }).map((_, j) => (
+            {Array.from({ length: GRID_COUNT }).map((_, j) => (
               <div
                 className="w-[10%] bg-[url(./src/assets/grass.png)]"
                 key={j}
@@ -51,7 +54,10 @@ function App() {
             top: position.y,
             left: position.x,
           }}
-          className={`size-[45px] absolute bg-[url(./src/assets/pikachu.png)] bg-cover`}
+          className={`size-[45px] absolute bg-[url(./src/assets/pikachu.png)] bg-cover
+          ease-in-out duration-300
+          ${isFlip && "[transform:rotateY(180deg)]"}
+          `}
         />
       </div>
     </div>
