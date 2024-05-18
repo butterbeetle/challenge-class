@@ -5,11 +5,12 @@ const GRID_COUNT = 10;
 function App() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isFlip, setIsFlip] = useState(false);
+  const [isJump, setIsJump] = useState(false);
 
   useEffect(() => {
     const moveHandler = (event) => {
       let { x, y } = position;
-      console.log("A", x, y);
+
       const { key } = event;
 
       if (key === "ArrowUp" && y > 0) {
@@ -23,9 +24,12 @@ function App() {
         x += 50;
         setIsFlip(false);
       } else if (key === " ") {
+        setIsJump(true);
+        setTimeout(() => {
+          setIsJump(false);
+        }, 300);
       }
       setPosition({ x, y });
-      setTimeout(() => {}, 300);
     };
 
     window.addEventListener("keydown", moveHandler);
@@ -55,8 +59,9 @@ function App() {
             left: position.x,
           }}
           className={`size-[45px] absolute bg-[url(./src/assets/pikachu.png)] bg-cover
-          ease-in-out duration-300
+          ease-linear duration-300
           ${isFlip && "[transform:rotateY(180deg)]"}
+          ${isJump && "animate-jump"}
           `}
         />
       </div>
