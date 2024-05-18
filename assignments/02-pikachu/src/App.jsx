@@ -6,12 +6,16 @@ function App() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isFlip, setIsFlip] = useState(false);
   const [isJump, setIsJump] = useState(false);
+  const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
+    let timeout = null;
+
     const moveHandler = (event) => {
       let { x, y } = position;
-
       const { key } = event;
+
+      if (isMoving) return null;
 
       if (key === "ArrowUp" && y > 0) {
         y -= 50;
@@ -29,12 +33,20 @@ function App() {
           setIsJump(false);
         }, 300);
       }
+      setIsMoving(true);
       setPosition({ x, y });
+
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        setIsMoving(false);
+      }, 50);
     };
 
     window.addEventListener("keydown", moveHandler);
-    return () => window.removeEventListener("keydown", moveHandler);
-  }, [position]);
+    return () => {
+      window.removeEventListener("keydown", moveHandler);
+    };
+  }, [position, isMoving]);
 
   return (
     <div className="bg-gray-100 w-full h-full relative">
@@ -57,11 +69,12 @@ function App() {
           style={{
             top: position.y,
             left: position.x,
+            transform: `${isFlip ? "rotateY(180deg)" : "rotateY(0deg)"} ${
+              isJump ? "translateY(-30px)" : "translateY(0)"
+            }`,
           }}
           className={`size-[45px] absolute bg-[url(./src/assets/pikachu.png)] bg-cover
-          ease-linear duration-300
-          ${isFlip && "[transform:rotateY(180deg)]"}
-          ${isJump && "animate-jump"}
+          transition-all ease-in-out duration-300
           `}
         />
       </div>
