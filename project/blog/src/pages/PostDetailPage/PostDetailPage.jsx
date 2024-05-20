@@ -1,7 +1,13 @@
-import { useParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 export default function PostDetailPage() {
-  const { postId } = useParams();
+  const post = useLoaderData();
+  const { title, body } = post;
 
-  return <div>PostsDetailPage {postId}</div>;
+  return (
+    <div>
+      <h1>{title}</h1>
+      <p>{body}</p>
+    </div>
+  );
 }
