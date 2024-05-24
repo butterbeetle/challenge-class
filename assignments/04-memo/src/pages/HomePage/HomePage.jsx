@@ -19,10 +19,15 @@ const MainDiv = styled.main`
 `;
 
 const Aside = styled.aside`
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid rgb(230, 230, 230);
+  overflow-y: auto;
 `;
 
 const AsideHeader = styled.header`
+  position: sticky;
+  top: 0px;
   display: flex;
   justify-content: space-between;
   padding: 12px 20px;
@@ -41,8 +46,9 @@ const AsideHeaderButton = styled.button`
 const AsideUl = styled.ul`
   padding: 20px 12px;
   gap: 8px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  overflow-x: hidden;
 `;
 
 const AsideLi = styled.li`
@@ -52,7 +58,6 @@ const AsideLi = styled.li`
   display: flex;
   gap: 2px;
   flex-direction: column;
-  justify-content: space-around;
   border-radius: 4px;
   cursor: pointer;
 
@@ -62,7 +67,6 @@ const AsideLi = styled.li`
 const AsideLiH6 = styled.h6`
   font-size: 13px;
   font-weight: bold;
-  flex: 1 1 0%;
   line-height: 16px;
 
   text-overflow: ellipsis;
@@ -72,7 +76,6 @@ const AsideLiH6 = styled.h6`
 
 const AsideLiTime = styled.time`
   font-size: 12px;
-  flex: 1 1 0%;
   line-height: 16px;
   color: #404040;
 `;
