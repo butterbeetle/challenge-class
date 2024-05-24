@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import TextArea from "../../components/TextArea";
+import { addMemo } from "../../redux/slices/memo.slice";
 import createUuid from "../../utils/myUuid";
 
 const MainDiv = styled.main`
@@ -71,37 +73,43 @@ const AsideLiTime = styled.time`
   color: #404040;
 `;
 
-const DATAS = [
-  {
-    content: "long eng long eng long eng long eng long eng ",
-    createdAt: "오전 10:36",
-  },
-  {
-    content: "오호오호오호오호오호오호오호오호",
-    createdAt: "오전 11:36",
-  },
-  {
-    content: "오마에와 모 신데이루. 나.. 나니잇 으어어억",
-    createdAt: "오전 12:36",
-  },
-];
-
 export default function HomePage() {
   const textareaRef = useRef(null);
+
+  const dispatch = useDispatch();
+  const memoDatas = useSelector((state) => state.memo);
+
+  console.log(memoDatas);
 
   useEffect(() => {
     textareaRef.current.focus();
   }, []);
 
+  const addMemoHandler = () => {
+    console.log("CLCIK");
+    dispatch(
+      addMemo({
+        id: createUuid(),
+        content: "새 메모 작성하기",
+        createdAt: new Date().toLocaleTimeString("ko-KR", {
+          hour: "numeric",
+          minute: "2-digit",
+        }),
+      })
+    );
+  };
+
   return (
     <MainDiv>
       <Aside>
         <AsideHeader>
-          <AsideHeaderButton>새 메모 작성하기</AsideHeaderButton>
+          <AsideHeaderButton onClick={addMemoHandler}>
+            새 메모 작성하기
+          </AsideHeaderButton>
           <AsideHeaderButton>삭제</AsideHeaderButton>
         </AsideHeader>
         <AsideUl>
-          {DATAS.map(({ content, createdAt }) => (
+          {memoDatas.map(({ content, createdAt }) => (
             <AsideLi key={createUuid()}>
               <AsideLiH6>{content}</AsideLiH6>
               <AsideLiTime>{createdAt}</AsideLiTime>
