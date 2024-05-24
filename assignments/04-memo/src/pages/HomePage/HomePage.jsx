@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import TextArea from "../../components/TextArea";
 import { addMemo } from "../../redux/slices/memo.slice";
+import { arrayToDate, currentDateToArray } from "../../utils/formatDate";
 import createUuid from "../../utils/myUuid";
 
 const MainDiv = styled.main`
@@ -55,7 +56,7 @@ const AsideLi = styled.li`
   border-radius: 4px;
   cursor: pointer;
 
-  background-color: #ffe07f;
+  background-color: ${({ $isClicked }) => ($isClicked ? "#ffe07f" : "white")};
 `;
 
 const AsideLiH6 = styled.h6`
@@ -86,18 +87,21 @@ export default function HomePage() {
   }, []);
 
   const addMemoHandler = () => {
-    console.log("CLCIK");
     dispatch(
       addMemo({
         id: createUuid(),
-        content: "새 메모 작성하기",
-        createdAt: new Date().toLocaleTimeString("ko-KR", {
-          hour: "numeric",
-          minute: "2-digit",
-        }),
+        content: "",
+        createdAt: currentDateToArray(),
+        isClicked: true,
       })
     );
   };
+
+  // const deleteMemoHandler = () => {
+  //   console.log("DELETE CLCIK");
+
+  //   dispatch(deleteMemo({id}))
+  // }
 
   return (
     <MainDiv>
@@ -109,10 +113,10 @@ export default function HomePage() {
           <AsideHeaderButton>삭제</AsideHeaderButton>
         </AsideHeader>
         <AsideUl>
-          {memoDatas.map(({ content, createdAt }) => (
-            <AsideLi key={createUuid()}>
-              <AsideLiH6>{content}</AsideLiH6>
-              <AsideLiTime>{createdAt}</AsideLiTime>
+          {memoDatas.map(({ content, createdAt, isClicked }) => (
+            <AsideLi $isClicked={isClicked} key={createUuid()}>
+              <AsideLiH6>{content || "새로운 메모"}</AsideLiH6>
+              <AsideLiTime>{arrayToDate(createdAt, "date")}</AsideLiTime>
             </AsideLi>
           ))}
         </AsideUl>
