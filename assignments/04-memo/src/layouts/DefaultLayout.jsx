@@ -3,8 +3,10 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   * {
-  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
 }
+
 html,
 body {
   height: 100%;
@@ -104,7 +106,6 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
-  font-family: Arial, Helvetica, sans-serif;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -161,7 +162,6 @@ button {
   overflow: visible;
   cursor: pointer;
 }
-
 `;
 export default function DefaultLayout() {
   return (

@@ -48,8 +48,9 @@ const AsideUl = styled.ul`
 const AsideLi = styled.li`
   box-sizing: border-box;
   height: 56px;
-  padding: 10px 24px;
+  padding: 8px 24px;
   display: flex;
+  gap: 2px;
   flex-direction: column;
   justify-content: space-around;
   border-radius: 4px;
@@ -61,7 +62,8 @@ const AsideLi = styled.li`
 const AsideLiH6 = styled.h6`
   font-size: 13px;
   font-weight: bold;
-  height: 14px;
+  flex: 1 1 0%;
+  line-height: 16px;
 
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -70,6 +72,8 @@ const AsideLiH6 = styled.h6`
 
 const AsideLiTime = styled.time`
   font-size: 12px;
+  flex: 1 1 0%;
+  line-height: 16px;
   color: #404040;
 `;
 
