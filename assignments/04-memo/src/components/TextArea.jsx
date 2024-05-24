@@ -27,16 +27,20 @@ const ArticleTextarea = styled.textarea`
 `;
 export default function TextArea() {
   const dispatch = useDispatch();
-  const { memoLists } = useSelector((state) => state.memo);
+  const filteredMemo = useSelector((state) => state.memo.memoLists).filter(
+    (memo) => memo.isClicked
+  )[0];
 
-  const { content, createdAt } = memoLists.filter((memo) => memo.isClicked)[0];
+  const { content, createdAt } = filteredMemo;
 
   const [userInputContent, setUserInputContent] = useState("");
   const textareaRef = useRef(null);
 
   useEffect(() => {
-    if (textareaRef.current) textareaRef.current.focus();
-  }, []);
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, [filteredMemo]);
 
   useEffect(() => {
     setUserInputContent(content);
