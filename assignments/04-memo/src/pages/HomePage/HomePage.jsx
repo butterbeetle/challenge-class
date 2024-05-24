@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import createUuid from "../../utils/myUuid";
 
 const MainDiv = styled.main`
   display: grid;
@@ -20,12 +21,17 @@ const Aside = styled.aside`
 const AsideHeader = styled.header`
   display: flex;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 12px 20px;
   border-bottom: 1px solid rgb(230, 230, 230);
 `;
 
 const AsideHeaderButton = styled.button`
   color: #808080;
+
+  &:hover {
+    color: #121212;
+    font-weight: bold;
+  }
 `;
 
 const AsideUl = styled.ul`
@@ -38,12 +44,24 @@ const AsideUl = styled.ul`
 const AsideLi = styled.li`
   box-sizing: border-box;
   height: 56px;
-  padding: 12px 24px;
+  padding: 10px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 4px;
+  cursor: pointer;
+
+  background-color: #ffe07f;
 `;
 
 const AsideLiH6 = styled.h6`
   font-size: 13px;
   font-weight: bold;
+  height: 14px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
 `;
 
 const AsideLiTime = styled.time`
@@ -73,6 +91,21 @@ const ArticleTextarea = styled.textarea`
   line-height: 1.66;
 `;
 
+const DATAS = [
+  {
+    content: "long eng long eng long eng long eng long eng ",
+    createdAt: "오전 10:36",
+  },
+  {
+    content: "오호오호오호오호오호오호오호오호",
+    createdAt: "오전 11:36",
+  },
+  {
+    content: "오마에와 모 신데이루. 나.. 나니잇 으어어억",
+    createdAt: "오전 12:36",
+  },
+];
+
 export default function HomePage() {
   return (
     <MainDiv>
@@ -82,25 +115,17 @@ export default function HomePage() {
           <AsideHeaderButton>삭제</AsideHeaderButton>
         </AsideHeader>
         <AsideUl>
-          <AsideLi>
-            <AsideLiH6>새로운 메모</AsideLiH6>
-            <AsideLiTime>오전 10:36</AsideLiTime>
-          </AsideLi>
-
-          <AsideLi>
-            <AsideLiH6>새로운 메모</AsideLiH6>
-            <AsideLiTime>오전 10:36</AsideLiTime>
-          </AsideLi>
-
-          <AsideLi>
-            <AsideLiH6>새로운 메모</AsideLiH6>
-            <AsideLiTime>오전 10:36</AsideLiTime>
-          </AsideLi>
+          {DATAS.map(({ content, createdAt }) => (
+            <AsideLi key={createUuid()}>
+              <AsideLiH6>{content}</AsideLiH6>
+              <AsideLiTime>{createdAt}</AsideLiTime>
+            </AsideLi>
+          ))}
         </AsideUl>
       </Aside>
       <Article>
         <ArticleH2>2024년 5월 24일 오전 11:20</ArticleH2>
-        <ArticleTextarea>텍스트 맨이야</ArticleTextarea>
+        <ArticleTextarea></ArticleTextarea>
       </Article>
     </MainDiv>
   );
