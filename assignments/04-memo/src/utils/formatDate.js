@@ -8,7 +8,6 @@ export function currentDateToArray() {
 
 export function arrayToDate(array, type) {
   const [year, month, day, date] = array;
-
   const formattingDate = date.split(":").slice(0, 2).join(":");
 
   if (type === "full") {

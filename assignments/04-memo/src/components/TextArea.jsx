@@ -1,4 +1,8 @@
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { updateMemo } from "../redux/slices/memo.slice";
+import { arrayToDate } from "../utils/formatDate";
 
 const Article = styled.article`
   display: flex;
@@ -21,11 +25,35 @@ const ArticleTextarea = styled.textarea`
   font-size: 15px;
   line-height: 1.66;
 `;
-export default function TextArea({ textareaRef }) {
+export default function TextArea() {
+  const dispatch = useDispatch();
+  const { memoLists } = useSelector((state) => state.memo);
+
+  const { content, createdAt } = memoLists.filter((memo) => memo.isClicked)[0];
+
+  const [userInputContent, setUserInputContent] = useState("");
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) textareaRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setUserInputContent(content);
+  }, [content]);
+
+  const onChangeHandler = (value) => {
+    dispatch(updateMemo({ memoContent: value }));
+  };
+
   return (
     <Article>
-      <ArticleH2>2024년 5월 24일 오전 11:20</ArticleH2>
-      <ArticleTextarea ref={textareaRef}></ArticleTextarea>
+      <ArticleH2>{arrayToDate(createdAt, "full")}</ArticleH2>
+      <ArticleTextarea
+        ref={textareaRef}
+        value={userInputContent}
+        onChange={(e) => onChangeHandler(e.target.value)}
+      ></ArticleTextarea>
     </Article>
   );
 }

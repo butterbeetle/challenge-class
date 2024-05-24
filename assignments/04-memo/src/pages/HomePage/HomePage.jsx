@@ -1,8 +1,7 @@
-import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import TextArea from "../../components/TextArea";
-import { addMemo } from "../../redux/slices/memo.slice";
+import { addMemo, clickedMemo } from "../../redux/slices/memo.slice";
 import { arrayToDate, currentDateToArray } from "../../utils/formatDate";
 import createUuid from "../../utils/myUuid";
 
@@ -75,16 +74,12 @@ const AsideLiTime = styled.time`
 `;
 
 export default function HomePage() {
-  const textareaRef = useRef(null);
-
   const dispatch = useDispatch();
-  const memoDatas = useSelector((state) => state.memo);
+  const { memoLists } = useSelector((state) => state.memo);
 
-  console.log(memoDatas);
-
-  useEffect(() => {
-    textareaRef.current.focus();
-  }, []);
+  const clickedMemoHandler = (id) => {
+    dispatch(clickedMemo({ memoId: id }));
+  };
 
   const addMemoHandler = () => {
     dispatch(
@@ -113,15 +108,23 @@ export default function HomePage() {
           <AsideHeaderButton>삭제</AsideHeaderButton>
         </AsideHeader>
         <AsideUl>
-          {memoDatas.map(({ content, createdAt, isClicked }) => (
-            <AsideLi $isClicked={isClicked} key={createUuid()}>
-              <AsideLiH6>{content || "새로운 메모"}</AsideLiH6>
-              <AsideLiTime>{arrayToDate(createdAt, "date")}</AsideLiTime>
-            </AsideLi>
-          ))}
+          {memoLists.map(({ id, content, createdAt, isClicked }) => {
+            const string =
+              content.length > 14 ? `${content.substring(0, 14)}...` : content;
+            return (
+              <AsideLi
+                key={id}
+                onClick={() => clickedMemoHandler(id)}
+                $isClicked={isClicked}
+              >
+                <AsideLiH6>{string || "새로운 메모"}</AsideLiH6>
+                <AsideLiTime>{arrayToDate(createdAt, "date")}</AsideLiTime>
+              </AsideLi>
+            );
+          })}
         </AsideUl>
       </Aside>
-      <TextArea textareaRef={textareaRef} />
+      <TextArea />
     </MainDiv>
   );
 }
