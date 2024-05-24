@@ -10,6 +10,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
+      {
+        path: "/memo/:memoId",
+        element: <HomePage />,
+      },
     ],
   },
 ]);
