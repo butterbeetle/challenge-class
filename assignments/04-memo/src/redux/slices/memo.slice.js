@@ -53,9 +53,26 @@ const memoSlice = createSlice({
         }),
       };
     },
-    // deleteMemo(state, action) {
-    //   console.log("DELETE MEMO");
-    // },
+    deleteMemo(state) {
+      if (state.memoLists.length === 1) {
+        alert("하나 이상의 메모는 남겨두어야 합니다.");
+        return;
+      }
+
+      return {
+        memoLists: state.memoLists
+          .filter((memo) => !memo.isClicked)
+          .map((memo, idx) => {
+            if (!idx) {
+              return {
+                ...memo,
+                isClicked: true,
+              };
+            }
+            return memo;
+          }),
+      };
+    },
   },
 });
 

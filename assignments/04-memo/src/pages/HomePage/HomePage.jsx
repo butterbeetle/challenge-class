@@ -1,7 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import TextArea from "../../components/TextArea";
-import { addMemo, clickedMemo } from "../../redux/slices/memo.slice";
+import {
+  addMemo,
+  clickedMemo,
+  deleteMemo,
+} from "../../redux/slices/memo.slice";
 import { arrayToDate, currentDateToArray } from "../../utils/formatDate";
 import createUuid from "../../utils/myUuid";
 
@@ -99,11 +103,9 @@ export default function HomePage() {
     );
   };
 
-  // const deleteMemoHandler = () => {
-  //   console.log("DELETE CLCIK");
-
-  //   dispatch(deleteMemo({id}))
-  // }
+  const deleteMemoHandler = () => {
+    dispatch(deleteMemo());
+  };
 
   return (
     <MainDiv>
@@ -112,7 +114,9 @@ export default function HomePage() {
           <AsideHeaderButton onClick={addMemoHandler}>
             새 메모 작성하기
           </AsideHeaderButton>
-          <AsideHeaderButton>삭제</AsideHeaderButton>
+          <AsideHeaderButton onClick={deleteMemoHandler}>
+            삭제
+          </AsideHeaderButton>
         </AsideHeader>
         <AsideUl>
           {memoLists.map(({ id, content, createdAt, isClicked }) => {
