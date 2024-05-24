@@ -56,8 +56,8 @@ const AsideLi = styled.li`
   height: 56px;
   padding: 8px 24px;
   display: flex;
-  gap: 2px;
   flex-direction: column;
+  justify-content: space-between;
   border-radius: 4px;
   cursor: pointer;
 
