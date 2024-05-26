@@ -1,4 +1,6 @@
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TextArea from "../../components/TextArea";
 import {
@@ -86,25 +88,42 @@ const AsideLiTime = styled.time`
 
 export default function HomePage() {
   const dispatch = useDispatch();
+  const memoId = useLoaderData();
+  const nav = useNavigate();
   const { memoLists } = useSelector((state) => state.memo);
 
-  const clickedMemoHandler = (id) => {
-    dispatch(clickedMemo({ memoId: id }));
-  };
+  const clickedMemoHandler = useCallback(
+    (id) => {
+      dispatch(clickedMemo({ memoId: id }));
+      nav(`/${id}`, { replace: true });
+    },
+    [dispatch, nav]
+  );
+
+  useEffect(() => {
+    if (memoId) {
+      clickedMemoHandler(memoId);
+    }
+  }, [memoId, clickedMemoHandler]);
 
   const addMemoHandler = () => {
+    const id = createUuid();
+
     dispatch(
       addMemo({
-        id: createUuid(),
+        id,
         content: "",
         createdAt: currentDateToArray(),
         isClicked: true,
       })
     );
+
+    nav(`/${id}`, { replace: true });
   };
 
   const deleteMemoHandler = () => {
     dispatch(deleteMemo());
+    nav(`/${memoLists[0].id}`, { replace: true });
   };
 
   return (

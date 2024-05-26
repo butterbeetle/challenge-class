@@ -27,9 +27,9 @@ const ArticleTextarea = styled.textarea`
 `;
 export default function TextArea() {
   const dispatch = useDispatch();
-  const filteredMemo = useSelector((state) => state.memo.memoLists).filter(
-    (memo) => memo.isClicked
-  )[0];
+
+  const { memoLists } = useSelector((state) => state.memo);
+  const filteredMemo = memoLists.filter((memo) => memo.isClicked)[0];
 
   const { content, createdAt } = filteredMemo;
 

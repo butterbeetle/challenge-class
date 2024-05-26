@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import DefaultLayout from "../layouts/DefaultLayout";
 import HomePage from "../pages/HomePage/HomePage";
+import homePageLoader from "../pages/HomePage/HomePage.loader";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +12,9 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/memo/:memoId",
+        path: "/:memoId",
         element: <HomePage />,
+        loader: homePageLoader,
       },
     ],
   },
