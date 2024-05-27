@@ -1,5 +1,15 @@
 export const LOG_IN = "auth/LOG_IN";
 export const LOG_OUT = "auth/LOG_OUT";
+export const INCREMENT = "INCREMENT";
+// Action Creator
+export const logIn = () => ({
+  type: LOG_IN,
+});
+export const logOut = () => ({
+  type: LOG_OUT,
+});
+
+export const increment = (value) => ({ type: INCREMENT, payload: value });
 
 const initialState = {
   isLoggedIn: false,

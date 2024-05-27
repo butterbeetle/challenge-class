@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { LOG_IN, LOG_OUT } from "../redux/reducers/auth.reducer";
+import { logIn, logOut } from "../redux/reducers/auth.reducer";
 
 function AuthButton() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const handlerClickButton = () => {
-    const action = { type: isLoggedIn ? LOG_OUT : LOG_IN };
+    // const action = { type: isLoggedIn ? LOG_OUT : LOG_IN };
+    // dispatch(action);
+
+    // Action Creator
+    const action = isLoggedIn ? logOut() : logIn();
     dispatch(action);
   };
 
