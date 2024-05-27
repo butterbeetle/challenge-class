@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
@@ -46,8 +47,15 @@ export default function TextArea() {
     setUserInputContent(content);
   }, [content]);
 
+  const debouncedOnChangeHandler = useRef(
+    debounce((value) => {
+      dispatch(updateMemo({ memoContent: value }));
+    }, 200)
+  ).current;
+
   const onChangeHandler = (value) => {
-    dispatch(updateMemo({ memoContent: value }));
+    setUserInputContent(value);
+    debouncedOnChangeHandler(value);
   };
 
   return (
