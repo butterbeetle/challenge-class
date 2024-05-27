@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { updateMemo } from "../redux/slices/memo.slice";
@@ -47,14 +47,23 @@ export default function TextArea() {
     setUserInputContent(content);
   }, [content]);
 
-  const debouncedOnChangeHandler = useRef(
+  // const debouncedOnChangeHandler = useRef(
+  //   debounce((value) => {
+  //     dispatch(updateMemo({ memoContent: value }));
+  //   }, 200)
+  // ).current;
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedOnChangeHandler = useCallback(
     debounce((value) => {
       dispatch(updateMemo({ memoContent: value }));
-    }, 200)
-  ).current;
+    }, 200),
+    []
+  );
 
   const onChangeHandler = (value) => {
     setUserInputContent(value);
+    // debouncedOnChangeHandler(value);
     debouncedOnChangeHandler(value);
   };
 
