@@ -14,8 +14,12 @@ const useLoginStore = create(
           isLoggedIn: false,
         })),
       // toggleIsLoggedIn:()=>set((prevState)=>({isLoggedIn:!prevState.isLoggedIn}))
-      toggleIsLoggedIn: () => {
+      toggleIsLoggedIn: async () => {
         const prevState = get();
+        const currentIsLoggedIn = prevState.isLoggedIn;
+        // 아래 코드, 즉 set하기 전
+        // 어딘가 통신을 하고 데이터를 가져와야 한다 등의 일이 있을 수 있음
+        await fetch(`/${currentIsLoggedIn}`);
         set({ isLoggedIn: !prevState.isLoggedIn });
       },
     }),
