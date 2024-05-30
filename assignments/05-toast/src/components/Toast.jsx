@@ -36,7 +36,6 @@ export default function Toast({ title, content, time, toastId }) {
         "cursor-pointer",
         {
           "translate-x-[calc(100%+24px)]": !visible,
-          "translate-x-0": visible,
         },
         "bg-white",
         "hover:bg-gray-50",

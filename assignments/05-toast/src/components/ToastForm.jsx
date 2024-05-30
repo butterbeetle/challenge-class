@@ -15,11 +15,11 @@ export default function ToastForm() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     const [title, content, time] = inputRef.current;
-    console.log("SUBMIT___");
+    // console.log("SUBMIT___");
 
-    console.log(title.value);
-    console.log(content.value);
-    console.log(time.value);
+    // console.log(title.value);
+    // console.log(content.value);
+    // console.log(time.value);
 
     toast.createToast({
       toastId: uuid(),
