@@ -29,7 +29,7 @@ export default function ToastForm() {
         inputRef={(el) => (inputRef.current[1] = el)}
         id="content"
         label="내용 (필수)"
-        defaultValue={todayToString}
+        defaultValue={todayToString()}
       />
       <ToastInput
         inputRef={(el) => (inputRef.current[2] = el)}
