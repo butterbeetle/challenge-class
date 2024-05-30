@@ -48,7 +48,6 @@ export default function Toast({ title, content, time, toastId }) {
     >
       <h6 className="font-semibold line-clamp-1">{title}</h6>
       <p className="line-clamp-1">{content}</p>
-      <p>{time}</p>
     </article>
   );
 }
