@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { todayToString } from "../utils/formatDate";
 import ToastInput from "./ToastInput";
 
 export default function ToastForm() {
@@ -28,7 +29,7 @@ export default function ToastForm() {
         inputRef={(el) => (inputRef.current[1] = el)}
         id="content"
         label="내용 (필수)"
-        defaultValue={new Date()}
+        defaultValue={todayToString}
       />
       <ToastInput
         inputRef={(el) => (inputRef.current[2] = el)}
