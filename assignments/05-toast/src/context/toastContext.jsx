@@ -1,7 +1,25 @@
-import { createContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const ToastContext = createContext(null);
+const initialValue = {
+  createToast: () => {},
+  deleteToast: () => {},
+};
+
+const ToastContext = createContext(initialValue);
+
+export const useToast = () => useContext(ToastContext);
 
 export default function ToastContextProvider({ children }) {
-  return <ToastContext.Provider>{children}</ToastContext.Provider>;
+  const [toastTitle, setToastTitle] = useState("Scheduled: Catch up");
+  const [toastContent, setToastContent] = useState(new Date());
+  const [toastTime, setToastTime] = useState(2000);
+
+  const value = {
+    createToast: () => {},
+    deleteToast: () => {},
+  };
+
+  return (
+    <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
+  );
 }

@@ -1,10 +1,10 @@
-import Toast from "./components/Toast";
+import ToastMain from "./components/ToastMain";
 import ToastContextProvider from "./context/toastContext";
 
 function App() {
   return (
     <ToastContextProvider>
-      <Toast />
+      <ToastMain />
     </ToastContextProvider>
   );
 }
