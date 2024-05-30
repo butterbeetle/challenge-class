@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
+import { useToast } from "../context/toast.context";
 import { todayToString } from "../utils/formatDate";
+import uuid from "../utils/uuid";
 import ToastInput from "./ToastInput";
 
 export default function ToastForm() {
   const inputRef = useRef([]);
+  const toast = useToast();
 
   useEffect(() => {
     if (inputRef.current[0]) inputRef.current[0].focus();
@@ -11,10 +14,19 @@ export default function ToastForm() {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
+    const [title, content, time] = inputRef.current;
     console.log("SUBMIT___");
-    console.log(inputRef.current[0].value);
-    console.log(inputRef.current[1].value);
-    console.log(inputRef.current[2].value);
+
+    console.log(title.value);
+    console.log(content.value);
+    console.log(time.value);
+
+    toast.createToast({
+      toastId: uuid(),
+      title: title.value,
+      content: content.value,
+      time: time.value,
+    });
   };
 
   return (
