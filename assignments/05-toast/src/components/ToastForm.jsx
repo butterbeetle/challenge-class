@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useToast } from "../context/toast.context";
 import { todayToString } from "../utils/formatDate";
-import uuid from "../utils/uuid";
 import ToastInput from "./ToastInput";
 
 export default function ToastForm() {
@@ -22,7 +21,6 @@ export default function ToastForm() {
     // console.log(time.value);
 
     toast.createToast({
-      toastId: uuid(),
       title: title.value,
       content: content.value,
       time: time.value,

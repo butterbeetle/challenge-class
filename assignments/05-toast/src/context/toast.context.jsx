@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import Toast from "../components/Toast";
+import uuid from "../utils/uuid";
 
 const initialValue = {
   createToast: () => {},
@@ -11,14 +12,17 @@ const ToastContext = createContext(initialValue);
 export const useToast = () => useContext(ToastContext);
 
 export default function ToastContextProvider({ children }) {
-  const [toastList, setToastList] = useState([]);
+  const [toasts, setToasts] = useState([]);
+
+  // List -> item
+  // 복수 -> 단수
 
   const value = {
     createToast: (options) => {
-      setToastList((prev) => [...prev, { ...options }]);
+      setToasts((prev) => [...prev, { id: uuid(), ...options }]);
     },
     deleteToast: (toastId) => {
-      setToastList((prev) => prev.filter((toast) => toast.toastId !== toastId));
+      setToasts((prev) => prev.filter((toast) => toast.toastId !== toastId));
     },
   };
 
@@ -26,7 +30,7 @@ export default function ToastContextProvider({ children }) {
     <ToastContext.Provider value={value}>
       {children}
       <ul className="fixed bottom-6 right-6 grid grid-cols-1 gap-y-3">
-        {toastList.map(({ toastId, title, content, time }) => (
+        {toasts.map(({ toastId, title, content, time }) => (
           <li key={toastId}>
             <Toast
               title={title}
