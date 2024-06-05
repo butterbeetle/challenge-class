@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 import api from "../api/api";
 import Page from "../components/Page";
 
@@ -17,30 +18,22 @@ function HomePage() {
     queryFn: () => api.products.getProducts(),
   });
 
-  const {
-    data: brands,
-    brandsIsLoading,
-    brandsIsError,
-  } = useQuery({
+  const { data: brands } = useQuery({
     queryKey: ["brands"],
     queryFn: () => api.brands.getBrands(),
   });
 
-  if (isLoading || brandsIsLoading) return <Page>Loading...</Page>;
-  if (isError || brandsIsError) return <Page>Error...</Page>;
+  if (isLoading) return <Page>Loading...</Page>;
+  if (isError) return <Page>Error...</Page>;
 
   return (
     <Page>
       <ol>
-        <h1>Brands</h1>
-        {brands.map((brand) => (
-          <li key={brand.id}>{brand.nameKr}</li>
-        ))}
-      </ol>
-      <ol>
         <h1>Products</h1>
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>
+            <Link to={`/products/${product.id}`}>{product.name}</Link>
+          </li>
         ))}
       </ol>
     </Page>
