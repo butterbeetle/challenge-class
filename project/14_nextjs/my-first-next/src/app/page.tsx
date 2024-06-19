@@ -1,5 +1,9 @@
+import { cookies } from "next/headers";
+
 function HomePage() {
-  return <div>HomePage</div>;
+  const accessToken = cookies().get("accessToken")?.value;
+
+  return <div>HomePage{accessToken}</div>;
 }
 
 export default HomePage;
