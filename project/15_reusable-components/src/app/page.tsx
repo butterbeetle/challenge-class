@@ -11,43 +11,11 @@ export default function Home() {
       <Chip label="칩칩" intent="info" />
       <Chip label="칩칩" />
       <hr />
-      <Button intent={"primary"} size={"sm"}>
-        Primary
-      </Button>
       <Button intent={"primary"} size={"md"}>
         Primary
       </Button>
-      <Button intent={"primary"} size={"lg"}>
+      <Button intent={"primary"} size={"md"} href="/">
         Primary
-      </Button>
-      <Button intent={"primary"} size={"lg"} variant={"outline"}>
-        Primary
-      </Button>
-      <hr />
-      <Button intent={"secondary"} size={"sm"}>
-        Secondary
-      </Button>
-      <Button intent={"secondary"} size={"md"}>
-        Secondary
-      </Button>
-      <Button intent={"secondary"} size={"lg"}>
-        Secondary
-      </Button>
-      <Button intent={"secondary"} size={"lg"} variant={"outline"}>
-        Secondary
-      </Button>
-      <hr />
-      <Button intent={"danger"} size={"sm"}>
-        Danger
-      </Button>
-      <Button intent={"danger"} size={"md"}>
-        Danger
-      </Button>
-      <Button intent={"danger"} size={"lg"}>
-        Danger
-      </Button>
-      <Button intent={"danger"} size={"lg"} variant={"outline"}>
-        Danger
       </Button>
     </div>
   );

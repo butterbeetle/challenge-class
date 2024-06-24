@@ -1,4 +1,5 @@
 import { VariantProps, cva } from "class-variance-authority";
+import Link from "next/link";
 import { ComponentProps, PropsWithChildren } from "react";
 
 const buttonVariant = cva(
@@ -64,7 +65,11 @@ type ButtonVariant = VariantProps<typeof buttonVariant>;
 
 // 위 아래 완전 똑같은 거
 // type ButtonProps = {} & ButtonVariant & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
-type ButtonProps = {} & ButtonVariant & ComponentProps<"button">;
+type ButtonProps = ButtonVariant &
+  (
+    | ({} & ComponentProps<"button">)
+    | ({ href: string } & ComponentProps<typeof Link>)
+  );
 
 function Button({
   intent,
@@ -73,11 +78,19 @@ function Button({
   children,
   ...props
 }: PropsWithChildren<ButtonProps>) {
-  return (
-    <button className={buttonVariant({ intent, size, variant })} {...props}>
-      {children}
-    </button>
-  );
+  if ("href" in props) {
+    return (
+      <Link className={buttonVariant({ intent, size, variant })} {...props}>
+        {children}
+      </Link>
+    );
+  } else {
+    return (
+      <button className={buttonVariant({ intent, size, variant })} {...props}>
+        {children}
+      </button>
+    );
+  }
 }
 
 export default Button;
