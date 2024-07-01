@@ -1,7 +1,7 @@
 import { SDeal } from "@/schemas/Deal.schema";
 import Link from "next/link";
-import DealCard from "../components/DealCard";
-import Page from "../components/Page";
+import DealCard from "../../../components/DealCard";
+import Page from "../../../components/Page";
 
 const deal: SDeal = {
   id: 111,

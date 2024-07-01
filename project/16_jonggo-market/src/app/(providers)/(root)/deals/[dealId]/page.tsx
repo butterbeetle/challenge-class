@@ -1,5 +1,5 @@
-import Button from "@/app/components/Button";
-import Page from "@/app/components/Page";
+import Button from "@/components/Button";
+import Page from "@/components/Page";
 import { SDeal } from "@/schemas/Deal.schema";
 import Image from "next/image";
 

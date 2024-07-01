@@ -1,4 +1,4 @@
-import Page from "@/app/components/Page";
+import Page from "@/components/Page";
 
 function LogInPage() {
   return (
