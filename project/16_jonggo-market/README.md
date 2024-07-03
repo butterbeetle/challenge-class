@@ -34,3 +34,25 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+```SQL
+-- 새로운 트리거 함수 생성
+CREATE OR REPLACE FUNCTION public.handle_new_user_custom()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.users (id, email, nickname)
+  VALUES (NEW.id, NEW.email, NEW.raw_user_meta_data->>'nickname');
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- 새로운 트리거 생성
+CREATE TRIGGER on_auth_user_created_custom
+AFTER INSERT ON auth.users
+FOR EACH ROW
+EXECUTE FUNCTION public.handle_new_user_custom();
+```
+
+```SQL
+https://supabase.com/docs/guides/api/rest/generating-types
+```

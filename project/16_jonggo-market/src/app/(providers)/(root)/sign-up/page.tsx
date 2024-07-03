@@ -15,8 +15,13 @@ function SignUpPage() {
     e.preventDefault();
 
     const { data, error } = await supabase.auth.signUp({
-      email: "example@email.com",
+      email: "example22@email.com",
       password: "example-password",
+      options: {
+        data: {
+          nickname: "존 시나",
+        },
+      },
     });
 
     console.log("DATA___", data);
